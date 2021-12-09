@@ -8,7 +8,7 @@ namespace Employees.Admin.Models.Dtos
 {
     public class EmployeeDto
     {
-        public Guid Id { get; set; }
+        public Guid? Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string MiddleName { get; set; }
@@ -21,5 +21,7 @@ namespace Employees.Admin.Models.Dtos
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Position { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
     }
 }

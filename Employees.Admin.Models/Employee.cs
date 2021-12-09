@@ -21,6 +21,8 @@ namespace Employees.Admin.Models
         public string Email { get; set; }
         public string Phone { get; set; }
         public string Position { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public DateTime CreatAt { get; set; }
         public DateTime UpdateAt { get; set; }
         public DateTime DeleteAt { get; set; }

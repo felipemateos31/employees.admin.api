@@ -39,6 +39,33 @@ namespace Employees.Admin.Data.Repositories
                 dp.Add("@pEmail", employee.Email);
                 dp.Add("@pPhone", employee.Phone);
                 dp.Add("@pPosition", employee.Position);
+                dp.Add("@pStartDate", employee.StartDate);
+                dp.Add("@pEndDate", employee.EndDate is null ? null : employee.EndDate);
+                return connection.Query<Employee>(storedProcedure, dp, commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
+            }
+        }
+
+        public async Task<Employee> UpdateEmployee(Employee employee)
+        {
+            var storedProcedure = "spUpdEmployee";
+            using (var connection = GetOpenConnection())
+            {
+                var dp = new DynamicParameters();
+                dp.Add("@pId", employee.Id);
+                dp.Add("@pFirstName", employee.FirstName);
+                dp.Add("@pLastName", employee.LastName);
+                dp.Add("@pMiddleName", employee.MiddleName);
+                dp.Add("@pAge", employee.Age);
+                dp.Add("@pBirthDate", employee.BirthDate);
+                dp.Add("@pGender", employee.Gender);
+                dp.Add("@pMaritalStatus", employee.MaritalStatus);
+                dp.Add("@pRfc", employee.Rfc);
+                dp.Add("@pAddress", employee.Address);
+                dp.Add("@pEmail", employee.Email);
+                dp.Add("@pPhone", employee.Phone);
+                dp.Add("@pPosition", employee.Position);
+                dp.Add("@pStartDate", employee.StartDate);
+                dp.Add("@pEndDate", employee.EndDate is null ? null : employee.EndDate);
                 return connection.Query<Employee>(storedProcedure, dp, commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
             }
         }
@@ -65,36 +92,17 @@ namespace Employees.Admin.Data.Repositories
             }
         }
 
-        public async Task<List<Employee>> GetEmployees()
+        public async Task<List<Employee>> GetEmployees(int typeConsult, int status, string name = "", string rfc = "")
         {
             var storedProcedure = "spSelEmployeeList";
             using (var connection = GetOpenConnection())
             {
                 var dp = new DynamicParameters();
+                dp.Add("@pTypeConsult", typeConsult);
+                dp.Add("@pName", name);
+                dp.Add("@pRfc", rfc);
+                dp.Add("@pStatus", status);
                 return connection.Query<Employee>(storedProcedure, dp, commandType: System.Data.CommandType.StoredProcedure).ToList();
-            }
-        }
-
-        public async Task<Employee> UpdateEmployee(Employee employee)
-        {
-            var storedProcedure = "spUpdEmployee";
-            using (var connection = GetOpenConnection())
-            {
-                var dp = new DynamicParameters();
-                dp.Add("@pId", employee.Id);
-                dp.Add("@pFirstName", employee.FirstName);
-                dp.Add("@pLastName", employee.LastName);
-                dp.Add("@pMiddleName", employee.MiddleName);
-                dp.Add("@pAge", employee.Age);
-                dp.Add("@pBirthDate", employee.BirthDate);
-                dp.Add("@pGender", employee.Gender);
-                dp.Add("@pMaritalStatus", employee.MaritalStatus);
-                dp.Add("@pRfc", employee.Rfc);
-                dp.Add("@pAddress", employee.Address);
-                dp.Add("@pEmail", employee.Email);
-                dp.Add("@pPhone", employee.Phone);
-                dp.Add("@pPosition", employee.Position);
-                return connection.Query<Employee>(storedProcedure, dp, commandType: System.Data.CommandType.StoredProcedure).FirstOrDefault();
             }
         }
     }

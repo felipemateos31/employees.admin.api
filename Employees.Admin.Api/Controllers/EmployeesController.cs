@@ -115,11 +115,14 @@ namespace Employees.Admin.Api.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult> GetEmployees()
+        public async Task<ActionResult> GetEmployees([FromQuery] int typeConsult, [FromQuery] int status, [FromQuery] string name, [FromQuery]  string rfc )
         {
             try
             {
-                var r = await _employeesRepository.GetEmployees();
+                name = name != null ? name : string.Empty;
+                rfc = rfc != null ? rfc : string.Empty;
+
+                var r = await _employeesRepository.GetEmployees(typeConsult, status, name, rfc);
                 return Ok(r);
             }
             catch (SqlException sqlex)
